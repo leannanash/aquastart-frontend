@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+  }
+
+  /* Balanced line breaks keep short headlines from ending on a lone word. */
+  h1, h2 {
+    text-wrap: balance;
+  }
+
+  /* Keyboard focus: dark teal on light backgrounds (9:1 on white). */
+  :focus-visible {
+    outline: 2px solid theme('colors.water.600');
+    outline-offset: 2px;
+  }
+
+  /* On dark surfaces the same ring would disappear, so switch to white.
+     :where() keeps this at the same specificity as the rule above, and it
+     comes later, so it wins inside dark sections. */
+  :where(.bg-ink, .bg-water-700, .bg-water-900) :focus-visible {
+    outline-color: #ffffff;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
