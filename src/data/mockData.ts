@@ -1,13 +1,10 @@
 /**
  * DEV-ONLY FALLBACK DATA.
  *
- * The real app is meant to source all of this from the Laravel API
- * (see src/services/*). This file exists purely so the frontend is
- * demoable before the backend (Phase 2+) is built. Every service
- * function tries the API first and only falls back to this data if
- * the request fails — once VITE_API_URL points at a live backend,
- * this file stops being used. Do not import it directly from
- * components or pages.
+ * The real app sources data from the Laravel API (see src/services/*).
+ * This file keeps the frontend demoable before the backend is available.
+ * Each service tries the API first and falls back to this data on failure.
+ * Do not import this file directly from components or pages.
  */
 import type { Lesson } from '@/types/lesson'
 import type { Instructor } from '@/types/instructor'
@@ -16,46 +13,24 @@ import type { Schedule } from '@/types/schedule'
 export const mockLessons: Lesson[] = [
   {
     id: 1,
-    name: 'Beginner Swimming',
+    name: 'Kids Swimming Program',
     description:
-      'For first-time swimmers of any age. Water comfort, floating, breathing, and the basics of front and back movement in a calm, shallow-water setting.',
-    price: 35,
-    duration_minutes: 45,
+      'Swimming lessons for kids ages 8–16. Build water confidence, learn essential swimming skills, and improve technique through a structured 10-session program. Each session lasts 1 hour.',
+    price: 5500,
+    duration_minutes: 60,
     level: 'Beginner',
     capacity: 6,
     is_active: true,
   },
   {
     id: 2,
-    name: 'Intermediate Swimming',
+    name: 'Adult Swimming Program',
     description:
-      'For swimmers who can float and glide independently. Focus on stroke technique, breath control, and building endurance across the pool.',
-    price: 40,
-    duration_minutes: 45,
-    level: 'Intermediate',
-    capacity: 6,
-    is_active: true,
-  },
-  {
-    id: 3,
-    name: 'Advanced Swimming',
-    description:
-      'For confident swimmers refining technique. Stroke efficiency, turns, and endurance work for freestyle, backstroke, and breaststroke.',
-    price: 45,
+      'Swimming lessons for adults ages 17 and above. Develop water confidence, learn swimming fundamentals, and improve technique through a structured 10-session program. Each session lasts 1 hour.',
+    price: 6000,
     duration_minutes: 60,
-    level: 'Advanced',
-    capacity: 4,
-    is_active: true,
-  },
-  {
-    id: 4,
-    name: 'Adult Learn-to-Swim',
-    description:
-      'A patient, judgment-free class for adults building water confidence from scratch, at their own pace.',
-    price: 45,
-    duration_minutes: 45,
     level: 'Beginner',
-    capacity: 4,
+    capacity: 6,
     is_active: true,
   },
 ]
@@ -63,29 +38,79 @@ export const mockLessons: Lesson[] = [
 export const mockInstructors: Instructor[] = [
   {
     id: 1,
-    name: 'Maria Santos',
-    bio: 'Certified swim instructor with 9 years of experience teaching beginners and young children to build water confidence.',
-    photo: null,
-    specialization: 'Beginner & Children',
-    is_active: true,
-  },
-  {
-    id: 2,
-    name: 'James Cruz',
-    bio: 'Former competitive swimmer specializing in stroke technique and endurance training for intermediate and advanced swimmers.',
-    photo: null,
-    specialization: 'Stroke Technique',
-    is_active: true,
-  },
-  {
-    id: 3,
-    name: 'Liza Fernandez',
-    bio: 'Water Safety Instructor focused on adult learners and anxious beginners, with a calm, step-by-step teaching style.',
-    photo: null,
-    specialization: 'Adult Learners',
+    name: 'Kyle Hizon',
+    bio:
+      'An experienced swimming instructor and former university varsity swimmer who has taught at swim clubs, private swim schools, and a university program. Specializes in beginner swimming, stroke technique, and water safety.',
+    photo: '/coach.jpg',
+    specialization: 'Beginner Swimming, Stroke Technique & Water Safety',
     is_active: true,
   },
 ]
+
+export const mockInstructorCredentials = {
+  experience: [
+    {
+      organization: 'Lake City Swim Club',
+      location: 'San Pablo City',
+      period: 'Summers of 2016, 2017, and 2019',
+      role: 'Swimming Instructor',
+    },
+    {
+      organization: 'Richwood Learn to Swim',
+      location: 'San Pablo City',
+      period: 'May–June 2022',
+      role: 'Swimming Instructor',
+    },
+    {
+      organization: 'Valle Verde Country Club',
+      location: 'Pasig City',
+      period: 'April–June 2023',
+      role: 'Swimming Instructor',
+    },
+    {
+      organization: 'CL Giant Otters Swim School',
+      location: 'BF Resort, Las Piñas',
+      period: 'June–August 2023',
+      role: 'Swimming Instructor',
+    },
+    {
+      organization: 'University of Perpetual Help System DALTA',
+      location: 'Las Piñas Campus',
+      period: 'July–August 2023; May–August 2024',
+      role: 'Swimming Instructor',
+    },
+  ],
+
+  achievements: [
+    'Multi-medalist in the 2013 Speedo G League Series (Class B)',
+    '4th Speedo Nationals G League Nationals Qualifier',
+    'Multi-medalist in STASA competitions from 2014 to 2018',
+    'STASA Championship Qualifier',
+    'University varsity swimming athlete from 2018 to 2024, excluding the pandemic period',
+    '4 × 100 m freestyle relay bronze medalist in Seasons 95 and 98',
+  ],
+
+  certifications: ['Basic First Aid and Water Safety'],
+}
+
+export const mockProgramDetails = {
+  sessions: 10,
+  duration_minutes: 60,
+  pricing: {
+    adults: {
+      age_min: 17,
+      age_max: null,
+      price: 6000,
+    },
+    kids: {
+      age_min: 8,
+      age_max: 16,
+      price: 5500,
+    },
+  },
+  contact_number: '09770059496',
+  location: 'AAP Villa Resorts, ADB Subdivision, San Pablo, Laguna',
+}
 
 function isoDateInDays(days: number): string {
   const d = new Date()
@@ -94,14 +119,28 @@ function isoDateInDays(days: number): string {
 }
 
 export const mockSchedules: Schedule[] = [
-  { id: 1, lesson_id: 1, instructor_id: 1, date: isoDateInDays(1), start_time: '09:00', end_time: '09:45', capacity: 6, spots_taken: 2, status: 'Available' },
-  { id: 2, lesson_id: 1, instructor_id: 1, date: isoDateInDays(1), start_time: '10:00', end_time: '10:45', capacity: 6, spots_taken: 6, status: 'Full' },
-  { id: 3, lesson_id: 2, instructor_id: 2, date: isoDateInDays(2), start_time: '16:00', end_time: '16:45', capacity: 6, spots_taken: 3, status: 'Available' },
-  { id: 4, lesson_id: 3, instructor_id: 2, date: isoDateInDays(3), start_time: '17:00', end_time: '18:00', capacity: 4, spots_taken: 1, status: 'Available' },
-  { id: 5, lesson_id: 4, instructor_id: 3, date: isoDateInDays(4), start_time: '18:00', end_time: '18:45', capacity: 4, spots_taken: 0, status: 'Available' },
-  { id: 6, lesson_id: 1, instructor_id: 1, date: isoDateInDays(5), start_time: '09:00', end_time: '09:45', capacity: 6, spots_taken: 4, status: 'Available' },
-  { id: 7, lesson_id: 2, instructor_id: 2, date: isoDateInDays(6), start_time: '16:00', end_time: '16:45', capacity: 6, spots_taken: 0, status: 'Cancelled' },
-  { id: 8, lesson_id: 3, instructor_id: 2, date: isoDateInDays(7), start_time: '17:00', end_time: '18:00', capacity: 4, spots_taken: 2, status: 'Available' },
+  {
+    id: 1,
+    lesson_id: 1,
+    instructor_id: 1,
+    date: isoDateInDays(1),
+    start_time: '09:00',
+    end_time: '10:00',
+    capacity: 6,
+    spots_taken: 2,
+    status: 'Available',
+  },
+  {
+    id: 2,
+    lesson_id: 1,
+    instructor_id: 1,
+    date: isoDateInDays(1),
+    start_time: '10:00',
+    end_time: '11:00',
+    capacity: 6,
+    spots_taken: 6,
+    status: 'Full',
+  },
 ]
 
 export const mockTestimonials = [

@@ -7,23 +7,41 @@ import { instructorService } from '@/services/instructorService'
 
 export default function Instructors() {
   usePageView('/instructors')
-  const { data, isLoading, status, error } = useApi(() => instructorService.list(), [])
+
+  const { data, isLoading, status, error } = useApi(
+    () => instructorService.list(),
+    [],
+  )
 
   return (
-    <div className="container-page py-16 sm:py-20">
+    <main className="container-page py-16 sm:py-20">
       <SectionHeading
-        title="Our instructors"
-        description="Certified, background-checked, and genuinely good with nervous first-timers."
+        title="Meet Your Swimming Coach"
+        description="Personalized swimming lessons led by an experienced instructor who helps swimmers build confidence, improve technique, and develop essential water safety skills."
       />
-      {isLoading && <LoadingSpinner label="Loading instructors…" />}
-      {status === 'error' && <ErrorMessage message={error ?? 'Something went wrong.'} />}
-      {data && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {data.map((i) => (
-            <InstructorCard key={i.id} instructor={i} />
-          ))}
-        </div>
+
+      {isLoading && <LoadingSpinner label="Loading coach profile…" />}
+
+      {status === 'error' && (
+        <ErrorMessage message={error ?? 'Unable to load the coach profile.'} />
       )}
-    </div>
+
+      {data && data.length > 0 && (
+        <section className="mx-auto mt-10 max-w-6xl">
+          {data.map((instructor) => (
+            <InstructorCard
+              key={instructor.id}
+              instructor={instructor}
+            />
+          ))}
+        </section>
+      )}
+
+      {data && data.length === 0 && !isLoading && (
+        <p className="py-12 text-center text-gray-500">
+          Our coach profile is being prepared. Please check back soon.
+        </p>
+      )}
+    </main>
   )
 }
