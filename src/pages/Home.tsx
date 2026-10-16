@@ -38,10 +38,6 @@ const facts = [
     label: 'Program format',
     value: '10 sessions, 1 hour per session',
   },
-  {
-    label: 'Lesson venue',
-    value: 'AAP Villa Resorts, San Pablo, Laguna',
-  },
 ]
 
 const principles = [
@@ -211,7 +207,7 @@ export default function Home() {
 
       {/* LESSON FACTS */}
       <section aria-label="Lesson overview" className="border-b border-slate-200">
-        <dl className="container-page grid sm:grid-cols-3 sm:divide-x sm:divide-slate-200">
+        <dl className="container-page grid sm:grid-cols-2 sm:divide-x sm:divide-slate-200">
           {facts.map((fact) => (
             <div
               key={fact.label}
@@ -338,111 +334,7 @@ export default function Home() {
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-800">
-              Simple program packages
-            </p>
-            <h2
-              id="pricing-title"
-              className="mt-3 text-3xl font-semibold tracking-tight text-[#073B4C] sm:text-4xl"
-            >
-              Find the right program for you
-            </h2>
-            <p className="mt-4 text-base leading-7 text-slate-700">
-              Every program includes 10 sessions, with one hour per session.
-              Contact us to ask about availability and booking.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-2">
-            {packages.map((program) => (
-              <article
-                key={program.title}
-                className="flex flex-col border border-slate-200 bg-white p-6 sm:p-8"
-              >
-                <p className="text-sm font-semibold text-cyan-800">
-                  {program.audience}
-                </p>
-
-                <h3 className="mt-2 text-2xl font-semibold text-[#073B4C]">
-                  {program.title}
-                </h3>
-
-                <p className="mt-3 text-base leading-7 text-slate-700">
-                  {program.description}
-                </p>
-
-                <div className="mt-6 border-t border-slate-200 pt-5">
-                  <p className="text-sm text-slate-600">Program price</p>
-                  <p className="mt-1 text-4xl font-semibold tracking-tight text-[#073B4C]">
-                    {program.price}
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    10 sessions · 1 hour each
-                  </p>
-                </div>
-
-                <Link
-                  to={BOOKING_PATH}
-                  className={`${btnPrimary} mt-6 w-full`}
-                >
-                  Book this program
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* AVAILABLE LESSONS
-      <section
-        id="lessons"
-        aria-labelledby="lessons-title"
-        className="scroll-mt-20 py-16 sm:py-20 lg:py-24"
-      >
-        <div className="container-page">
-          <SectionHeading
-            title="Available lessons"
-            description="Browse the lesson options currently listed by AquaStart."
-            action={
-              <Link to="/lessons" className={textLink}>
-                View all lessons
-              </Link>
-            }
-          />
-
-          {lessons.isLoading && <LoadingSpinner label="Loading lessons" />}
-
-          {lessons.status === 'error' && (
-            <ErrorMessage message="We couldn't load the lesson list just now. You can still contact us to ask about available programs." />
-          )}
-
-          {lessons.data && lessons.data.length > 0 && (
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {lessons.data.slice(0, 3).map((lesson) => (
-                <LessonCard key={lesson.id} lesson={lesson} />
-              ))}
-            </div>
-          )}
-
-          {lessons.data?.length === 0 && (
-            <p className="mt-5 border border-dashed border-slate-300 px-5 py-6 text-sm leading-6 text-slate-700">
-              Lesson listings are being updated. Send us an inquiry and we'll
-              share the current options with you.
-            </p>
-          )}
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link to={BOOKING_PATH} className={btnPrimary}>
-              Book a lesson
-            </Link>
-
-            <a href={INQUIRY_URL} {...externalProps} className={textLink}>
-              Or send us an inquiry
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </div>
-        </div>
-      </section> */}
-
+     
       {/* MEET YOUR COACH */}
       <InstructorPreview />
 
@@ -491,7 +383,7 @@ export default function Home() {
         aria-labelledby="schedule-title"
         className="scroll-mt-20 py-16 sm:py-20 lg:py-24"
       >
-        <div className="container-page grid gap-14 lg:grid-cols-2 lg:gap-20">
+        <div className="container-page grid min-w-0 grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <h2
               id="schedule-title"
@@ -656,13 +548,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* MOBILE BOOKING BAR */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:hidden">
-        <Link to={BOOKING_PATH} className={`${btnPrimary} w-full`}>
-          Book a lesson
-        </Link>
-      </div>
     </main>
   )
 }
